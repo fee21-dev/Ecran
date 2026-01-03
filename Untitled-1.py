@@ -1,35 +1,35 @@
-"Code de l'écran d'accueil"
 
-from tkinter import * "du module tkinter importe"
+
+from tkinter import *
 import tkinter
-import pygame " on importe pygame"
+import pygame
 from PIL import Image, ImageTk
 
-fenetre = Tk() "Creation d'une fenetre"
-fenetre.title("Gestionnaire de réunion Parent-Professeur")"On intitule la fenetre"
-fenetre.geometry('1000x800')  "On lui donne des dimensions"
-fenetre.configure(bg='#000099') "La couleur du fond est initialisé"
+fenetre = Tk()
+fenetre.title("Gestionnaire de réunion Parent-Professeur")
+fenetre.geometry('1000x800')  
+fenetre.configure(bg='#000099') 
 
 
-canvas = Canvas(fenetre, width=1000, height=800,bg="#ffff80") "On crée un canvas et on colore son fond"
+canvas = Canvas(fenetre, width=1000, height=800,bg="#ffff80")
 #py -3.11 "C:\Users\feero\OneDrive\Desktop\Untitled-1.py"
 canvas.pack()
 
 
-img = Image.open(r"C:\Users\feero\OneDrive\Desktop\cla.png") "On importe une image"
+img = Image.open(r"C:\Users\feero\OneDrive\Desktop\cla.png")
 
-img = img.resize((800, 500), Image.LANCZOS) "On modifie la taille de l'image"
+img = img.resize((800, 500), Image.LANCZOS)
 
-photo2 = ImageTk.PhotoImage(img) "On sauvegarde l'image dans une variable photo2"
+photo2 = ImageTk.PhotoImage(img)
 
-canvas.create_image(100, 100, anchor=NW, image=photo2) "On place l'image aux coordonnés x = 100 et y = 100"
-img1 = Image.open(r"C:\Users\feero\OneDrive\Desktop\logo.png") "On importe une image"
+canvas.create_image(100, 100, anchor=NW, image=photo2)
+img1 = Image.open(r"C:\Users\feero\OneDrive\Desktop\logo.png")
 
-img1 = img1.resize((300, 200), Image.LANCZOS) "On modifie la taille de l'image"
+img1 = img1.resize((300, 200), Image.LANCZOS)
 
-photo1 = ImageTk.PhotoImage(img1) "On sauvegarde l'image dans une variable photo2"
+photo1 = ImageTk.PhotoImage(img1)
 
-canvas.create_image(365, 100, anchor=NW, image=photo1) "On place l'image aux coordonnés x = 100 et y = 100"
+canvas.create_image(365, 100, anchor=NW, image=photo1)
 canvas.photo1 = photo1
 canvas.photo2 = photo2
 
@@ -37,30 +37,81 @@ label = Label(
     fenetre,
    text="Gestionnaire de réunion Parent-Professeur",
     bg="#ff6600",
-    font=("System", 20)) "On crée une ligne de texte"
-label.place(x=360, y=30) "On lui donne les coordonnées suivantes"
-label = Label(fenetre,text="ACCUEIL",bg="#faf9f9",font=("System", 40)) "On crée une ligne de texte"
-label.place(x=525, y=300) "On lui donne les coordonnées suivantes"
-Entrer = Button(canvas,text="Entrer",font=("System", 16),bg="#A4E4FF") "On crée un bouton"
-entrer_id = canvas.create_window(470, 385, window=Entrer, anchor="nw") "On lui donne les coordonnées suivantes"
+    font=("System", 20))
+label.place(x=360, y=30)
+label = Label(fenetre,text="ACCUEIL",bg="#faf9f9",font=("System", 40))
+label.place(x=525, y=300)
+Entrer = Button(canvas,text="Entrer",font=("System", 16),bg="#A4E4FF")
+entrer_id = canvas.create_window(470, 385, window=Entrer, anchor="nw")
 canvas.tag_raise(entrer_id)
+def ouvrir_regle(event = None):
+    fenetre = Toplevel()
+    fenetre.title("Réunion")
+    fenetre.geometry("600x400")
+    fenetre.configure(bg="#FF9620")
 
-Politique = canvas.create_text(508, 445,  text="Politique de l'Académie des Ninjas",font=("Yu Gothic UI", 10),fill="white"  "On crée le texte sur un canvas"                                                                                                                                                                                                                                                                   )
+    # Titre
+    title_label = Label(
+        fenetre,
+        text="Règle pour la Réunion Parent - Professeur",
+        bg="#FF9620",
+        font=("Arial", 16, "bold")
+    )
+    title_label.place(x=10,y=50)
 
-canvas.tag_bind(Politique, "<Button-1>") "On lui associe un evenement clique gauche"
-canvas.config(cursor="hand2") "Change le curseur de la souris en main"
+    # Texte
+    text_label = Label(
+        fenetre,
+        text=(
+            "Ne pas ramener d'arme\n"
+            "Respecter les horaires\n"
+            "Être poli\n"
+            "Ne pas tuer votre enfant\n"
+            "Apporter le nécessaire de document\n"
+            "Ne pas faire n'importe quoi\n"
+            "Ne pas rater la salle"
+        ),
+        bg="#FF9620",
+        justify=LEFT
+    )
+    text_label.place(x=20,y=50)
 
-pygame.init() "On initialise pygame"
-pygame.mixer.init(frequency=44100) " On initialise le module audio de Pygame"
+    # Case à cocher
+    agree_var = BooleanVar(master=fenetre)
+    checkbutton = Checkbutton(
+        fenetre,
+        text="J'accepte toutes les règles",
+        variable=agree_var,
+        bg="#FF9620"
+    )
+    checkbutton.place(x=40,y=50)
+    fenetre.protocol("WM_DELETE_WINDOW", lambda: None) 
+    
+    bouton = Button(
+        fenetre,
+        text="Fermer",
+        command=fenetre.destroy,
+        bg="#3139DE",
+        fg="white"
+    )
+    bouton.place(x=50, y=20)
+Politique = canvas.create_text(508, 445,  text="Politique de l'Académie des Ninjas",font=("Yu Gothic UI", 10),fill="white"                                                                                                                                                                                                                                                                      )
 
-def play(): "Crée une fonction play"
-    pygame.mixer.music.load(r"C:\Users\feero\OneDrive\Desktop\naruto.mp3") "On importe le fichier Naruto"
-    pygame.mixer.music.play(loops=-1) "Lance la musique dans une boucle infiniee"
-    pygame.mixer.music.set_volume(1)"On définit le volume"
 
-play_button = Button(canvas, text="Musique", font=("Segoe UI Black", 22), fg="white",bg="#FF9447",relief=GROOVE, command=play)"On crée un bouton"
-canvas.create_window(730, 510, window=play_button, anchor="nw") "on lui associe des coordonnées"
+canvas.tag_bind(Politique, "<Button-1>",ouvrir_regle)
+canvas.config(cursor="hand2")
+
+pygame.init()
+pygame.mixer.init(frequency=44100)
+
+def play():
+    pygame.mixer.music.load(r"C:\Users\feero\OneDrive\Desktop\naruto.mp3")
+    pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(1) 
+
+play_button = Button(canvas, text="Musique", font=("Segoe UI Black", 22), fg="white",bg="#FF9447",relief=GROOVE, command=play)
+canvas.create_window(730, 510, window=play_button, anchor="nw")
 
 
 
-fenetre.mainloop() "On ferme la fenêtre"
+fenetre.mainloop()
