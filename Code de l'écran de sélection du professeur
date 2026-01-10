@@ -1,0 +1,972 @@
+from tkinter import *
+import tkinter
+import pygame
+from PIL import Image, ImageTk
+
+fenetre = Tk()
+fenetre.title("Gestionnaire de réunion Parent-Professeur")
+fenetre.geometry('1000x800')   
+container = Frame(fenetre)
+container.place(x=0, y=0, relwidth=1, relheight=1)
+panel_accueil = Frame(container, bg='#000099')
+panel_accueil.place(x=0, y=0, relwidth=1, relheight=1)
+canvas = Canvas(panel_accueil, width=1000, height=800, bg="#ffff80")
+canvas.pack()
+ 
+
+img = Image.open(r"C:\Users\feero\OneDrive\Desktop\cla.png")
+
+img = img.resize((800, 500), Image.LANCZOS)
+
+photo2 = ImageTk.PhotoImage(img)
+
+canvas.create_image(100, 100, anchor=NW, image=photo2)
+img1 = Image.open(r"C:\Users\feero\OneDrive\Desktop\logo.png")
+
+img1 = img1.resize((300, 200), Image.LANCZOS)
+
+photo1 = ImageTk.PhotoImage(img1)
+
+canvas.create_image(365, 100, anchor=NW, image=photo1)
+canvas.photo1 = photo1
+canvas.photo2 = photo2
+
+label = Label(
+    panel_accueil,
+   text="Gestionnaire de réunion Parent-Professeur",
+    bg="#ff6600",
+    font=("System", 20))
+label.place(x=360, y=30)
+label = Label(panel_accueil,text="ACCUEIL",bg="#faf9f9",font=("System", 40))
+label.place(x=525, y=300)
+
+panel1 = Frame(container, bg="#955B43",bd=0, highlightthickness=0)
+panel1.place(x=0, y=0, relwidth=1, relheight=1)
+canva_panel1 = Canvas(panel1, width=1400, height=1000, bg="#955B43", highlightthickness=0)
+canva_panel1.place(x=0, y=10)
+
+Label(panel1, text="Les Professeurs de l'académie", font=("Modern", 40),bg="#FFF2A7").place(x=380, y=15)
+iru = Image.open(r"C:\Users\feero\OneDrive\Desktop\iru.png")
+iru = iru.resize((230, 500), Image.LANCZOS)
+photoiru = ImageTk.PhotoImage(iru)
+image_coord = canva_panel1.create_image(10, 75, anchor=NW, image=photoiru)
+canva_panel1.photoiru = photoiru
+
+kak = Image.open(r"C:\Users\feero\OneDrive\Desktop\kak.png")
+kak = kak.resize((190, 500), Image.LANCZOS)
+photokak = ImageTk.PhotoImage(kak)
+image_coord = canva_panel1.create_image(220, 75, anchor=NW, image=photokak)
+canva_panel1.photokak = photokak
+
+asu = Image.open(r"C:\Users\feero\OneDrive\Desktop\asu.png")
+asu = asu.resize((290, 560), Image.LANCZOS)
+photoasu = ImageTk.PhotoImage(asu)
+image_coord = canva_panel1.create_image(350, 15, anchor=NW, image=photoasu)
+canva_panel1.photoasu = photoasu
+
+kur = Image.open(r"C:\Users\feero\OneDrive\Desktop\kur.png")
+kur = kur.resize((260, 500), Image.LANCZOS)
+photokur = ImageTk.PhotoImage(kur)
+image_coord = canva_panel1.create_image(580, 88, anchor=NW, image=photokur)
+canva_panel1.photokur = photokur
+
+gai = Image.open(r"C:\Users\feero\OneDrive\Desktop\gai.png")
+gai = gai.resize((230, 500), Image.LANCZOS)
+photogai = ImageTk.PhotoImage(gai)
+image_coord = canva_panel1.create_image(825, 78, anchor=NW, image=photogai)
+canva_panel1.photogai = photogai
+
+jir = Image.open(r"C:\Users\feero\OneDrive\Desktop\jir.png")
+jir = jir.resize((260, 520), Image.LANCZOS)
+photojir = ImageTk.PhotoImage(jir)
+image_coord = canva_panel1.create_image(1020, 48, anchor=NW, image=photojir)
+canva_panel1.photojir = photojir
+
+Iruka = Button(
+    canva_panel1,
+    text="Iruka-Sensei",
+    font=("System", 16),
+    bg="#F0FFA4"
+)
+
+iruka_id = canva_panel1.create_window(
+    90, 450,   
+    window=Iruka,
+    anchor="nw")
+
+canva_panel1.tag_raise(iruka_id)
+def ouvrir_iruka():
+    fen = Toplevel()  
+    fen.title("Lettre pour Iruka-sensei")
+    fen.geometry("1200x800")
+
+    
+    nom = StringVar()
+    clan = StringVar()
+    plainte = StringVar()
+    jour = StringVar()
+    heure = StringVar()
+
+    
+    panel = Frame(fen)
+    panel.pack(fill="both", expand=True)
+
+    canvas = Canvas(panel)
+    canvas.pack(fill="both", expand=True)
+
+    
+    original_image = Image.open(r"C:\Users\feero\OneDrive\Desktop\par1.png")
+
+    
+    TEXT_OFFSET_X = 240
+    TEXT_Y = 175
+    TEXT_WIDTH = 820
+
+    
+    entry_nom = Entry(panel, textvariable=nom, width=25)
+    entry_plainte = Entry(panel, textvariable=plainte, width=40)
+    entry_jour = Entry(panel, textvariable=jour, width=18)
+    entry_heure = Entry(panel, textvariable=heure, width=18)
+    entry_clan = Entry(panel, textvariable=clan, width=25)
+    bouton = Button(panel, text="Valider")
+
+    
+    def redraw(event=None):
+        canvas.delete("all")
+        
+        win_width = canvas.winfo_width()
+        win_height = canvas.winfo_height()
+        
+        image = original_image.resize((win_width, win_height), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        canvas.image = photo
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        
+        TEXT_X = 60 + TEXT_OFFSET_X
+        
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y,
+            anchor=NW,
+            text="Cher Iruka-sensei,\nNous sommes les parents de",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 30, window=entry_nom)  
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 80,
+            anchor=NW,
+            text="élève de votre classe à l’Académie ninja de Konoha.\nNous nous permettons de vous écrire car nous souhaiterions convenir d’un "
+                 "rendez-vous parents-professeurs afin de discuter de ses progrès, "
+                 "son comportement, son utilisation excessive du jutsu",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 180,
+            anchor=NW,
+            text="Notre enfant nous a récemment rapporté que",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 180, anchor=NW, window=entry_plainte)
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 220,
+            anchor=NW,
+            text="Nous sommes disponibles le",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 210 + 25, TEXT_Y + 226, window=entry_jour)  
+
+        canvas.create_text(
+            TEXT_X + 360, TEXT_Y + 220,
+            anchor=NW,
+            text="à partir de",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 470 + 16, TEXT_Y + 226, window=entry_heure)
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 260,
+            anchor=NW,
+            text="mais restons bien entendu flexibles selon votre emploi du temps chargé de sensei.\n"
+                 "Nous vous remercions par avance pour votre patience, votre pédagogie et "
+                 "votre dévouement envers les jeunes ninjas du village caché de Konoha.",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 380 - 30,  
+            anchor=NW,
+            text="Le Clan :",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 135, TEXT_Y + 380 - 30 + 9, window=entry_clan)  
+
+        
+        canvas.create_window(TEXT_X + 740, TEXT_Y + 530, window=bouton)
+
+    canvas.bind("<Configure>", redraw)
+Iruka.config(command=ouvrir_iruka)
+
+
+Kakashi = Button(
+    canva_panel1,
+    text="Kakashi-Sensei",
+    font=("System", 16),
+    bg="#F0FFA4"
+)
+
+kakashi_id = canva_panel1.create_window(
+    260, 450,   
+    window=Kakashi,
+    anchor="nw")
+
+canva_panel1.tag_raise(kakashi_id)
+def ouvrir_ka():
+    fen = Toplevel()  
+    fen.title("Lettre pour Kakashi-sensei")
+    fen.geometry("1200x800")
+
+    
+    nom = StringVar()
+    clan = StringVar()
+    plainte = StringVar()
+    jour = StringVar()
+    heure = StringVar()
+
+    
+    panel = Frame(fen)
+    panel.pack(fill="both", expand=True)
+
+    canvas = Canvas(panel)
+    canvas.pack(fill="both", expand=True)
+
+    
+    original_image = Image.open(r"C:\Users\feero\OneDrive\Desktop\par1.png")
+
+
+    TEXT_OFFSET_X = 240
+    TEXT_Y = 175
+    TEXT_WIDTH = 820
+
+    
+    entry_nom = Entry(panel, textvariable=nom, width=25)
+    entry_plainte = Entry(panel, textvariable=plainte, width=40)
+    entry_jour = Entry(panel, textvariable=jour, width=18)
+    entry_heure = Entry(panel, textvariable=heure, width=18)
+    entry_clan = Entry(panel, textvariable=clan, width=25)
+    bouton = Button(panel, text="Valider")
+
+    
+    def redraw(event=None):
+        canvas.delete("all")
+        
+        win_width = canvas.winfo_width()
+        win_height = canvas.winfo_height()
+        
+        image = original_image.resize((win_width, win_height), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        canvas.image = photo
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        
+        TEXT_X = 60 + TEXT_OFFSET_X
+        
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y,
+            anchor=NW,
+            text="Cher Kakashi-sensei,\nNous sommes les parents de",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 30, window=entry_nom)  
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 80,
+            anchor=NW,
+            text="élève de votre classe à l’Académie ninja de Konoha.\nNous nous permettons de vous écrire car nous souhaiterions convenir d’un "
+                 "rendez-vous parents-professeurs afin de discuter de ses progrès, "
+                 "son comportement, son utilisation excessive du jutsu",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 180,
+            anchor=NW,
+            text="Notre enfant nous a récemment rapporté que",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 180, anchor=NW, window=entry_plainte)
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 220,
+            anchor=NW,
+            text="Nous sommes disponibles le",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 210 + 25, TEXT_Y + 226, window=entry_jour)  
+
+        canvas.create_text(
+            TEXT_X + 360, TEXT_Y + 220,
+            anchor=NW,
+            text="à partir de",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 470 + 16, TEXT_Y + 226, window=entry_heure)
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 260,
+            anchor=NW,
+            text="mais restons bien entendu flexibles selon votre emploi du temps chargé de sensei.\n"
+                 "Nous vous remercions par avance pour votre patience, votre pédagogie et "
+                 "votre dévouement envers les jeunes ninjas du village caché de Konoha.",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 380 - 30,  
+            anchor=NW,
+            text="Le Clan :",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 135, TEXT_Y + 380 - 30 + 9, window=entry_clan)  
+
+        
+        canvas.create_window(TEXT_X + 740, TEXT_Y + 530, window=bouton)
+
+    canvas.bind("<Configure>", redraw)
+Kakashi.config(command=ouvrir_ka)
+
+
+Asuma = Button(
+    canva_panel1,
+    text="Asuma-Sensei",
+    font=("System", 16),
+    bg="#F0FFA4"
+)
+
+asuma_id = canva_panel1.create_window(
+    441, 450,   
+    window=Asuma,
+    anchor="nw")
+
+canva_panel1.tag_raise(asuma_id)
+def ouvrir_a():
+    fen = Toplevel() 
+    fen.title("Lettre pour Asuma-sensei")
+    fen.geometry("1200x800")
+
+    
+    nom = StringVar()
+    clan = StringVar()
+    plainte = StringVar()
+    jour = StringVar()
+    heure = StringVar()
+
+    
+    panel = Frame(fen)
+    panel.pack(fill="both", expand=True)
+
+    canvas = Canvas(panel)
+    canvas.pack(fill="both", expand=True)
+
+    
+    original_image = Image.open(r"C:\Users\feero\OneDrive\Desktop\par1.png")
+
+   
+    TEXT_OFFSET_X = 240
+    TEXT_Y = 175
+    TEXT_WIDTH = 820
+
+    
+    entry_nom = Entry(panel, textvariable=nom, width=25)
+    entry_plainte = Entry(panel, textvariable=plainte, width=40)
+    entry_jour = Entry(panel, textvariable=jour, width=18)
+    entry_heure = Entry(panel, textvariable=heure, width=18)
+    entry_clan = Entry(panel, textvariable=clan, width=25)
+    bouton = Button(panel, text="Valider")
+
+    
+    def redraw(event=None):
+        canvas.delete("all")
+        
+        win_width = canvas.winfo_width()
+        win_height = canvas.winfo_height()
+        
+        image = original_image.resize((win_width, win_height), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        canvas.image = photo
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        
+        TEXT_X = 60 + TEXT_OFFSET_X
+        
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y,
+            anchor=NW,
+            text="Cher Asuma-sensei,\nNous sommes les parents de",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 30, window=entry_nom)  
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 80,
+            anchor=NW,
+            text="élève de votre classe à l’Académie ninja de Konoha.\nNous nous permettons de vous écrire car nous souhaiterions convenir d’un "
+                 "rendez-vous parents-professeurs afin de discuter de ses progrès, "
+                 "son comportement, son utilisation excessive du jutsu",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 180,
+            anchor=NW,
+            text="Notre enfant nous a récemment rapporté que",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 180, anchor=NW, window=entry_plainte)
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 220,
+            anchor=NW,
+            text="Nous sommes disponibles le",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 210 + 25, TEXT_Y + 226, window=entry_jour)  
+
+        canvas.create_text(
+            TEXT_X + 360, TEXT_Y + 220,
+            anchor=NW,
+            text="à partir de",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 470 + 16, TEXT_Y + 226, window=entry_heure)
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 260,
+            anchor=NW,
+            text="mais restons bien entendu flexibles selon votre emploi du temps chargé de sensei.\n"
+                 "Nous vous remercions par avance pour votre patience, votre pédagogie et "
+                 "votre dévouement envers les jeunes ninjas du village caché de Konoha.",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 380 - 30,  
+            anchor=NW,
+            text="Le Clan :",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 135, TEXT_Y + 380 - 30 + 9, window=entry_clan)  
+
+        
+        canvas.create_window(TEXT_X + 740, TEXT_Y + 530, window=bouton)
+
+    canvas.bind("<Configure>", redraw)
+Asuma.config(command=ouvrir_a)
+
+
+K = Button(
+    canva_panel1,
+    text="Kurenai-Sensei",
+    font=("System", 16),
+    bg="#F0FFA4"
+)
+
+k_id = canva_panel1.create_window(
+    651, 450,   
+    window=K,
+    anchor="nw")
+
+canva_panel1.tag_raise(k_id)
+def ouvrir_k():
+    fen = Toplevel()  
+    fen.title("Lettre pour Kurenai-sensei")
+    fen.geometry("1200x800")
+
+    nom = StringVar()
+    clan = StringVar()
+    plainte = StringVar()
+    jour = StringVar()
+    heure = StringVar()
+
+    
+    panel = Frame(fen)
+    panel.pack(fill="both", expand=True)
+
+    canvas = Canvas(panel)
+    canvas.pack(fill="both", expand=True)
+
+    
+    original_image = Image.open(r"C:\Users\feero\OneDrive\Desktop\par1.png")
+
+    
+    TEXT_OFFSET_X = 240
+    TEXT_Y = 175
+    TEXT_WIDTH = 820
+
+    
+    entry_nom = Entry(panel, textvariable=nom, width=25)
+    entry_plainte = Entry(panel, textvariable=plainte, width=40)
+    entry_jour = Entry(panel, textvariable=jour, width=18)
+    entry_heure = Entry(panel, textvariable=heure, width=18)
+    entry_clan = Entry(panel, textvariable=clan, width=25)
+    bouton = Button(panel, text="Valider")
+
+   
+    def redraw(event=None):
+        canvas.delete("all")
+        
+        win_width = canvas.winfo_width()
+        win_height = canvas.winfo_height()
+        
+        image = original_image.resize((win_width, win_height), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        canvas.image = photo
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        
+        TEXT_X = 60 + TEXT_OFFSET_X
+        
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y,
+            anchor=NW,
+            text="Cher Kurenai-sensei,\nNous sommes les parents de",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 30, window=entry_nom)  
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 80,
+            anchor=NW,
+            text="élève de votre classe à l’Académie ninja de Konoha.\nNous nous permettons de vous écrire car nous souhaiterions convenir d’un "
+                 "rendez-vous parents-professeurs afin de discuter de ses progrès, "
+                 "son comportement, son utilisation excessive du jutsu",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 180,
+            anchor=NW,
+            text="Notre enfant nous a récemment rapporté que",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 180, anchor=NW, window=entry_plainte)
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 220,
+            anchor=NW,
+            text="Nous sommes disponibles le",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 210 + 25, TEXT_Y + 226, window=entry_jour)  
+
+        canvas.create_text(
+            TEXT_X + 360, TEXT_Y + 220,
+            anchor=NW,
+            text="à partir de",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 470 + 16, TEXT_Y + 226, window=entry_heure)
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 260,
+            anchor=NW,
+            text="mais restons bien entendu flexibles selon votre emploi du temps chargé de sensei.\n"
+                 "Nous vous remercions par avance pour votre patience, votre pédagogie et "
+                 "votre dévouement envers les jeunes ninjas du village caché de Konoha.",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 380 - 30,  
+            anchor=NW,
+            text="Le Clan :",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 135, TEXT_Y + 380 - 30 + 9, window=entry_clan)  
+
+        
+        canvas.create_window(TEXT_X + 740, TEXT_Y + 530, window=bouton)
+
+    canvas.bind("<Configure>", redraw)
+K.config(command=ouvrir_k)
+
+
+G = Button(
+    canva_panel1,
+    text="Gai-Sensei",
+    font=("System", 16),
+    bg="#F0FFA4"
+)
+
+g_id = canva_panel1.create_window(
+    878, 450,   
+    window=G,
+    anchor="nw")
+
+canva_panel1.tag_raise(g_id)
+def ouvrir_g():
+    fen = Toplevel() 
+    fen.title("Lettre pour Gai-sensei")
+    fen.geometry("1200x800")
+
+    
+    nom = StringVar()
+    clan = StringVar()
+    plainte = StringVar()
+    jour = StringVar()
+    heure = StringVar()
+
+    
+    panel = Frame(fen)
+    panel.pack(fill="both", expand=True)
+
+    canvas = Canvas(panel)
+    canvas.pack(fill="both", expand=True)
+
+    
+    original_image = Image.open(r"C:\Users\feero\OneDrive\Desktop\par1.png")
+
+    
+    TEXT_OFFSET_X = 240
+    TEXT_Y = 175
+    TEXT_WIDTH = 820
+
+    
+    entry_nom = Entry(panel, textvariable=nom, width=25)
+    entry_plainte = Entry(panel, textvariable=plainte, width=40)
+    entry_jour = Entry(panel, textvariable=jour, width=18)
+    entry_heure = Entry(panel, textvariable=heure, width=18)
+    entry_clan = Entry(panel, textvariable=clan, width=25)
+    bouton = Button(panel, text="Valider")
+
+    
+    def redraw(event=None):
+        canvas.delete("all")
+        
+        win_width = canvas.winfo_width()
+        win_height = canvas.winfo_height()
+        
+        image = original_image.resize((win_width, win_height), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        canvas.image = photo
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        
+        TEXT_X = 60 + TEXT_OFFSET_X
+        
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y,
+            anchor=NW,
+            text="Cher Gai-sensei,\nNous sommes les parents de",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 30, window=entry_nom)  
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 80,
+            anchor=NW,
+            text="élève de votre classe à l’Académie ninja de Konoha.\nNous nous permettons de vous écrire car nous souhaiterions convenir d’un "
+                 "rendez-vous parents-professeurs afin de discuter de ses progrès, "
+                 "son comportement, son utilisation excessive du jutsu",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 180,
+            anchor=NW,
+            text="Notre enfant nous a récemment rapporté que",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 180, anchor=NW, window=entry_plainte)
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 220,
+            anchor=NW,
+            text="Nous sommes disponibles le",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 210 + 25, TEXT_Y + 226, window=entry_jour)  
+
+        canvas.create_text(
+            TEXT_X + 360, TEXT_Y + 220,
+            anchor=NW,
+            text="à partir de",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 470 + 16, TEXT_Y + 226, window=entry_heure)
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 260,
+            anchor=NW,
+            text="mais restons bien entendu flexibles selon votre emploi du temps chargé de sensei.\n"
+                 "Nous vous remercions par avance pour votre patience, votre pédagogie et "
+                 "votre dévouement envers les jeunes ninjas du village caché de Konoha.",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 380 - 30,  
+            anchor=NW,
+            text="Le Clan :",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 135, TEXT_Y + 380 - 30 + 9, window=entry_clan)  
+
+        
+        canvas.create_window(TEXT_X + 740, TEXT_Y + 530, window=bouton)
+
+    canvas.bind("<Configure>", redraw)
+G.config(command=ouvrir_g)
+
+
+J = Button(
+    canva_panel1,
+    text="Jiraya",
+    font=("System", 16),
+    bg="#F0FFA4"
+)
+
+j_id = canva_panel1.create_window(
+    1125, 450,   
+    window=J,
+    anchor="nw")
+
+canva_panel1.tag_raise(j_id)
+def ouvrir_j():
+    fen = Toplevel()  
+    fen.title("Lettre pour l'Ermite pas net")
+    fen.geometry("1200x800")
+
+    nom = StringVar()
+    clan = StringVar()
+    plainte = StringVar()
+    jour = StringVar()
+    heure = StringVar()
+
+    
+    panel = Frame(fen)
+    panel.pack(fill="both", expand=True)
+
+    canvas = Canvas(panel)
+    canvas.pack(fill="both", expand=True)
+
+    
+    original_image = Image.open(r"C:\Users\feero\OneDrive\Desktop\par1.png")
+
+    
+    TEXT_OFFSET_X = 240
+    TEXT_Y = 175
+    TEXT_WIDTH = 820
+
+    
+    entry_nom = Entry(panel, textvariable=nom, width=25)
+    entry_plainte = Entry(panel, textvariable=plainte, width=40)
+    entry_jour = Entry(panel, textvariable=jour, width=18)
+    entry_heure = Entry(panel, textvariable=heure, width=18)
+    entry_clan = Entry(panel, textvariable=clan, width=25)
+    bouton = Button(panel, text="Valider")
+
+   
+    def redraw(event=None):
+        canvas.delete("all")
+        
+        win_width = canvas.winfo_width()
+        win_height = canvas.winfo_height()
+        
+        image = original_image.resize((win_width, win_height), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        canvas.image = photo
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        
+        TEXT_X = 60 + TEXT_OFFSET_X
+        
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y,
+            anchor=NW,
+            text="Cher Jiraya,\nNous sommes les parents de",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 30, window=entry_nom)  
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 80,
+            anchor=NW,
+            text="élève de l’Académie ninja de Konoha.\nNous nous permettons de vous écrire car nous souhaiterions convenir d’un "
+                 "rendez-vous parents-professeurs afin de discuter de ses progrès, "
+                 "votre comportement et son utilisation excessive du jutsu",
+            font=("Times New Roman", 12),
+            width=TEXT_WIDTH
+        )
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 180,
+            anchor=NW,
+            text="Notre enfant nous a récemment rapporté que",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 300, TEXT_Y + 180, anchor=NW, window=entry_plainte)
+
+        
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 220,
+            anchor=NW,
+            text="Nous sommes disponibles le",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 210 + 25, TEXT_Y + 226, window=entry_jour)  
+
+        canvas.create_text(
+            TEXT_X + 360, TEXT_Y + 220,
+            anchor=NW,
+            text="à partir de",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 470 + 16, TEXT_Y + 226, window=entry_heure)
+
+        canvas.create_text(
+        TEXT_X, TEXT_Y + 260,
+        anchor=NW,
+        text="mais restons bien entendu flexibles selon votre emploi du temps chargé de 'peut-etre' futur hokage.\n"
+         "Nous vous remercions par avance pour votre patience, votre pédagogie et "
+         "votre dévouement envers les jeunes ninjas du village caché de Konoha.",
+        font=("Times New Roman", 12),
+        width=TEXT_WIDTH
+        )
+
+        canvas.create_text(
+            TEXT_X, TEXT_Y + 380 - 30,  
+            anchor=NW,
+            text="Le Clan :",
+            font=("Times New Roman", 12)
+        )
+        canvas.create_window(TEXT_X + 135, TEXT_Y + 380 - 30 + 9, window=entry_clan)  
+
+        
+        canvas.create_window(TEXT_X + 740, TEXT_Y + 530, window=bouton)
+
+    canvas.bind("<Configure>", redraw)
+J.config(command=ouvrir_j)
+
+
+Entrer = Button(canvas,text="Entrer",font=("System", 16),bg="#A4E4FF",command=lambda: panel1.tkraise())
+entrer_id = canvas.create_window(470, 385, window=Entrer, anchor="nw")
+canvas.tag_raise(entrer_id)
+
+def ouvrir_regle(event = None):
+    fenetre = Toplevel()
+    fenetre.title("Réunion")
+    fenetre.geometry("600x400")
+    fenetre.configure(bg="#FF9620")
+
+    
+    title_label = Label(
+        fenetre,
+        text="Règle pour la Réunion Parent - Professeur",
+        bg="#FF9620",
+        font=("Arial", 16, "bold")
+    )
+    title_label.place(x=10,y=50)
+
+    
+    text_label = Label(
+        fenetre,
+        text=(
+            "Ne pas ramener d'arme\n"
+            "Respecter les horaires\n"
+            "Être poli\n"
+            "Ne pas tuer votre enfant\n"
+            "Apporter le nécessaire de document\n"
+            "Ne pas faire n'importe quoi\n"
+            "Ne pas rater la salle"
+        ),
+        bg="#FF9620",
+        justify=LEFT
+    )
+    text_label.place(x=20,y=50)
+
+    
+    agree_var = BooleanVar(master=fenetre)
+    checkbutton = Checkbutton(
+        fenetre,
+        text="J'accepte toutes les règles",
+        variable=agree_var,
+        bg="#FF9620"
+    )
+    checkbutton.place(x=40,y=50)
+    fenetre.protocol("WM_DELETE_WINDOW", lambda: None) 
+    
+    bouton = Button(
+        fenetre,
+        text="Fermer",
+        command=fenetre.destroy,
+        bg="#3139DE",
+        fg="white"
+    )
+    bouton.place(x=50, y=20)
+Politique = canvas.create_text(508, 445,  text="Politique de l'Académie des Ninjas",font=("Yu Gothic UI", 10),fill="white"                                                                                                                                                                                                                                                                      )
+
+
+canvas.tag_bind(Politique, "<Button-1>",ouvrir_regle)
+canvas.config(cursor="hand2")
+
+pygame.init()
+pygame.mixer.init(frequency=44100)
+
+def play():
+    pygame.mixer.music.load(r"C:\Users\feero\OneDrive\Desktop\naruto.mp3")
+    pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(1) 
+
+play_button = Button(canvas, text="Musique", font=("Segoe UI Black", 22), fg="white",bg="#FF9447",relief=GROOVE, command=play)
+canvas.create_window(730, 510, window=play_button, anchor="nw")
+
+panel_accueil.tkraise()
+
+
+fenetre.mainloop()
